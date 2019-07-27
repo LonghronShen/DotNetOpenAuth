@@ -7,7 +7,7 @@
 namespace DotNetOpenAuth.ComponentModel {
 	using System;
 	using System.Diagnostics.Contracts;
-	using System.IdentityModel.Claims;
+    using Microsoft.IdentityModel.Claims;
 
 	/// <summary>
 	/// A design-time helper to give a Uri property an auto-complete functionality

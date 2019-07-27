@@ -14,10 +14,14 @@ namespace DotNetOpenAuth.Messaging.Bindings {
 
 	using Validation;
 
-	/// <summary>
-	/// A binding element that checks/verifies a nonce message part.
-	/// </summary>
-	internal class StandardReplayProtectionBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// A binding element that checks/verifies a nonce message part.
+    /// </summary>
+    internal class StandardReplayProtectionBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable, precompleted task that can be returned many times to reduce GC pressure.
 		/// </summary>

@@ -10,11 +10,15 @@ namespace DotNetOpenAuth.Messaging.Bindings {
 	using System.Threading.Tasks;
 	using DotNetOpenAuth.Configuration;
 
-	/// <summary>
-	/// A message expiration enforcing binding element that supports messages
-	/// implementing the <see cref="IExpiringProtocolMessage"/> interface.
-	/// </summary>
-	internal class StandardExpirationBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// A message expiration enforcing binding element that supports messages
+    /// implementing the <see cref="IExpiringProtocolMessage"/> interface.
+    /// </summary>
+    internal class StandardExpirationBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable pre-completed task that may be returned multiple times to reduce GC pressure.
 		/// </summary>

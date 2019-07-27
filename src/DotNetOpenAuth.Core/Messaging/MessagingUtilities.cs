@@ -31,10 +31,10 @@ namespace DotNetOpenAuth.Messaging {
 	using DotNetOpenAuth.Messaging.Reflection;
 	using Validation;
 
-	/// <summary>
-	/// A grab-bag of utility methods useful for the channel stack of the protocol.
-	/// </summary>
-	[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Utility class touches lots of surface area")]
+    /// <summary>
+    /// A grab-bag of utility methods useful for the channel stack of the protocol.
+    /// </summary>
+    [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Utility class touches lots of surface area")]
 	public static class MessagingUtilities {
 		/// <summary>
 		/// The cryptographically strong random data generator used for creating secrets.
@@ -91,7 +91,13 @@ namespace DotNetOpenAuth.Messaging {
 		/// <summary>
 		/// A pre-completed task.
 		/// </summary>
-		private static readonly Task CompletedTaskField = Task.FromResult<object>(null);
+		private static readonly Task CompletedTaskField =
+#if NET40
+            System.Threading.Tasks.TaskEx
+#else
+            Task
+#endif
+            .FromResult<object>(null);
 
 		/// <summary>
 		/// The default lifetime of a private secret.
@@ -2020,7 +2026,7 @@ namespace DotNetOpenAuth.Messaging {
 				this.comparison = comparison;
 			}
 
-			#region IComparer<T> Members
+#region IComparer<T> Members
 
 			/// <summary>
 			/// Compares two instances of <typeparamref name="T"/>.
@@ -2032,7 +2038,7 @@ namespace DotNetOpenAuth.Messaging {
 				return this.comparison(x, y);
 			}
 
-			#endregion
+#endregion
 		}
 	}
 }

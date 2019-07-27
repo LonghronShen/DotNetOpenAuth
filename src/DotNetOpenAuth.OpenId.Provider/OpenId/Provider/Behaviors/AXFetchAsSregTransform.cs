@@ -21,12 +21,16 @@ namespace DotNetOpenAuth.OpenId.Provider.Behaviors {
 	using DotNetOpenAuth.OpenId.Provider.Extensions;
 	using DotNetOpenAuth.OpenId.RelyingParty;
 
-	/// <summary>
-	/// An Attribute Exchange and Simple Registration filter to make all incoming attribute 
-	/// requests look like Simple Registration requests, and to convert the response
-	/// to the originally requested extension and format.
-	/// </summary>
-	[SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sreg", Justification = "Abbreviation")]
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// An Attribute Exchange and Simple Registration filter to make all incoming attribute 
+    /// requests look like Simple Registration requests, and to convert the response
+    /// to the originally requested extension and format.
+    /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Sreg", Justification = "Abbreviation")]
 	public sealed class AXFetchAsSregTransform : AXFetchAsSregTransformBase, IProviderBehavior {
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AXFetchAsSregTransform"/> class.

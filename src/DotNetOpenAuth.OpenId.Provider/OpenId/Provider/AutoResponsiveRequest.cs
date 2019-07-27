@@ -15,12 +15,16 @@ namespace DotNetOpenAuth.OpenId.Provider {
 	using DotNetOpenAuth.OpenId.Messages;
 	using Validation;
 
-	/// <summary>
-	/// Handles messages coming into an OpenID Provider for which the entire
-	/// response message can be automatically determined without help from
-	/// the hosting web site.
-	/// </summary>
-	internal class AutoResponsiveRequest : Request {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Handles messages coming into an OpenID Provider for which the entire
+    /// response message can be automatically determined without help from
+    /// the hosting web site.
+    /// </summary>
+    internal class AutoResponsiveRequest : Request {
 		/// <summary>
 		/// The response message to send.
 		/// </summary>

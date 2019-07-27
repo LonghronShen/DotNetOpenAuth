@@ -12,12 +12,16 @@ namespace DotNetOpenAuth.OpenId.ChannelElements {
 	using DotNetOpenAuth.Messaging.Reflection;
 	using DotNetOpenAuth.OpenId.Messages;
 
-	/// <summary>
-	/// Provides a mechanism for Relying Parties to work with OpenID 1.0 Providers
-	/// without losing claimed_id and op_endpoint data, which OpenID 2.0 Providers
-	/// are required to send back with positive assertions.
-	/// </summary>
-	internal class BackwardCompatibilityBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Provides a mechanism for Relying Parties to work with OpenID 1.0 Providers
+    /// without losing claimed_id and op_endpoint data, which OpenID 2.0 Providers
+    /// are required to send back with positive assertions.
+    /// </summary>
+    internal class BackwardCompatibilityBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable pre-completed task that may be returned multiple times to reduce GC pressure.
 		/// </summary>

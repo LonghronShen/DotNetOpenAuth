@@ -646,7 +646,7 @@ namespace DotNetOpenAuth.OpenId.RelyingParty {
 			    && this.Page.Request.QueryString[UIPopupCallbackParentKey] == null) {
 				// We're in a popup window.  We need to close it and pass the
 				// message back to the parent window for processing.
-				this.Page.RegisterAsyncTask(new PageAsyncTask(async ct => {
+				this.Page.RegisterAsyncTask(PageAsyncTaskFactory.Create(async ct => {
 					await this.ScriptClosingPopupOrIFrameAsync(ct);
 				}));
 			} else {
@@ -658,7 +658,7 @@ namespace DotNetOpenAuth.OpenId.RelyingParty {
 				                  ?? this.Page.Request.Form[ReturnToReceivingControlId];
 				if (receiver == this.ClientID || (receiver == null && !this.IsEmbeddedInParentOpenIdControl)) {
 					this.Page.RegisterAsyncTask(
-						new PageAsyncTask(
+                        PageAsyncTaskFactory.Create(
 							async ct => {
 								var response = await this.RelyingParty.GetResponseAsync(new HttpRequestWrapper(this.Context.Request), ct);
 								Logger.Controls.DebugFormat(

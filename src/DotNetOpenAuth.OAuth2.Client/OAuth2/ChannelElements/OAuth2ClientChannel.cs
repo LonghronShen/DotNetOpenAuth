@@ -144,7 +144,13 @@ namespace DotNetOpenAuth.OAuth2.ChannelElements {
 				return null;
 			}
 
-			return Task.FromResult((IDirectedProtocolMessage)this.Receive(fields, recipient));
+			return
+#if NET40
+                TaskEx
+#else
+                Task
+#endif
+                .FromResult((IDirectedProtocolMessage)this.Receive(fields, recipient));
 		}
 
 		/// <summary>

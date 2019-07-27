@@ -11,10 +11,14 @@ namespace DotNetOpenAuth.Messaging {
 	using System.Text;
 	using System.Threading.Tasks;
 
-	/// <summary>
-	/// Reusable pre-completed tasks that may be returned multiple times to reduce GC pressure.
-	/// </summary>
-	internal static class MessageProtectionTasks {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Reusable pre-completed tasks that may be returned multiple times to reduce GC pressure.
+    /// </summary>
+    internal static class MessageProtectionTasks {
 		/// <summary>
 		/// A task whose result is <c>null</c>
 		/// </summary>

@@ -11,10 +11,14 @@ namespace DotNetOpenAuth.OpenId.ChannelElements {
 	using DotNetOpenAuth.OpenId.Messages;
 	using DotNetOpenAuth.OpenId.RelyingParty;
 
-	/// <summary>
-	/// Helps ensure compliance to some properties in the <see cref="RelyingPartySecuritySettings"/>.
-	/// </summary>
-	internal class RelyingPartySecurityOptions : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Helps ensure compliance to some properties in the <see cref="RelyingPartySecuritySettings"/>.
+    /// </summary>
+    internal class RelyingPartySecurityOptions : IChannelBindingElement {
 		/// <summary>
 		/// A reusable pre-completed task that may be returned multiple times to reduce GC pressure.
 		/// </summary>

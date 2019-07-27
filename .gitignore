@@ -25,3 +25,5 @@ _ReSharper*
 *.docstates
 UpgradeLog*.htm
 /src/packages
+.vs/
+MigrationBackup/

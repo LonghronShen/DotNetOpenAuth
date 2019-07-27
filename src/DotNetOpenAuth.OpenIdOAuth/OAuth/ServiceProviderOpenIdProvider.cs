@@ -11,7 +11,6 @@ namespace DotNetOpenAuth.OAuth {
 	using System.Diagnostics.CodeAnalysis;
 	using System.Globalization;
 	using System.Security.Principal;
-	using System.ServiceModel.Channels;
 	using System.Web;
 	using DotNetOpenAuth.Configuration;
 	using DotNetOpenAuth.Messaging;

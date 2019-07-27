@@ -936,7 +936,7 @@ idselector_input_id = '" + this.ClientID + @"';
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void LoginButton_Click(object sender, EventArgs e) {
 			this.Page.RegisterAsyncTask(
-				new PageAsyncTask(
+                PageAsyncTaskFactory.Create(
 					async ct => {
 						if (!this.Page.IsValid) {
 							return;

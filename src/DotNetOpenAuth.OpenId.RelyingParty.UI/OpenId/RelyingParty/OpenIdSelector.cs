@@ -318,7 +318,7 @@ namespace DotNetOpenAuth.OpenId.RelyingParty {
 				this.positiveAssertionField.ClientID);
 			this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Postback", script, true);
 
-			this.Page.RegisterAsyncTask(new PageAsyncTask(async ct => {
+			this.Page.RegisterAsyncTask(PageAsyncTaskFactory.Create(async ct => {
 				await this.PreloadDiscoveryAsync(
 					this.Buttons.OfType<SelectorProviderButton>().Select(op => op.OPIdentifier).Where(id => id != null),
 					ct);

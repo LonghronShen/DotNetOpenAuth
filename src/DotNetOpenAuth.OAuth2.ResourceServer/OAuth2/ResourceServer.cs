@@ -11,7 +11,6 @@ namespace DotNetOpenAuth.OAuth2 {
 	using System.Linq;
 	using System.Net;
 	using System.Net.Http;
-	using System.Security.Claims;
 	using System.Security.Principal;
 	using System.ServiceModel.Channels;
 	using System.Text;

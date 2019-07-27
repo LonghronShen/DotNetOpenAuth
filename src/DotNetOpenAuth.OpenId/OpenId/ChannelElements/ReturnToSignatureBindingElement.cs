@@ -19,21 +19,25 @@ namespace DotNetOpenAuth.OpenId.ChannelElements {
 	using DotNetOpenAuth.OpenId.Messages;
 	using Validation;
 
-	/// <summary>
-	/// This binding element signs a Relying Party's openid.return_to parameter
-	/// so that upon return, it can verify that it hasn't been tampered with.
-	/// </summary>
-	/// <remarks>
-	/// <para>Since Providers can send unsolicited assertions, not all openid.return_to
-	/// values will be signed.  But those that are signed will be validated, and
-	/// any invalid or missing signatures will cause this library to not trust
-	/// the parameters in the return_to URL.</para>
-	/// <para>In the messaging stack, this binding element looks like an ordinary
-	/// transform-type of binding element rather than a protection element,
-	/// due to its required order in the channel stack and that it doesn't sign
-	/// anything except a particular message part.</para>
-	/// </remarks>
-	internal class ReturnToSignatureBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// This binding element signs a Relying Party's openid.return_to parameter
+    /// so that upon return, it can verify that it hasn't been tampered with.
+    /// </summary>
+    /// <remarks>
+    /// <para>Since Providers can send unsolicited assertions, not all openid.return_to
+    /// values will be signed.  But those that are signed will be validated, and
+    /// any invalid or missing signatures will cause this library to not trust
+    /// the parameters in the return_to URL.</para>
+    /// <para>In the messaging stack, this binding element looks like an ordinary
+    /// transform-type of binding element rather than a protection element,
+    /// due to its required order in the channel stack and that it doesn't sign
+    /// anything except a particular message part.</para>
+    /// </remarks>
+    internal class ReturnToSignatureBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable pre-completed task that may be returned multiple times to reduce GC pressure.
 		/// </summary>

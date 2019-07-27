@@ -456,7 +456,13 @@ namespace DotNetOpenAuth.OpenId.RelyingParty {
 				return new KeyValuePair<IdentifierDiscoveryResult, AuthenticationRequest>(endpoint, new AuthenticationRequest(endpoint, realm, returnToUrl, relyingParty));
 			}).ToList();
 
-			await Task.WhenAll(authRequestResults);
+			await
+#if NET40
+                TaskEx
+#else
+                Task
+#endif
+                .WhenAll(authRequestResults);
 			var results = (from pair in authRequestResults where pair.Result.Value != null select pair.Result.Value).ToList();
 
 			// Maintain a list of endpoints that we could not form an association with.

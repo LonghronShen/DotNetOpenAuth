@@ -26,10 +26,14 @@ namespace DotNetOpenAuth.OpenId.RelyingParty {
 	using DotNetOpenAuth.OpenId.Extensions.UI;
 	using Validation;
 
-	/// <summary>
-	/// Provides the programmatic facilities to act as an AJAX-enabled OpenID relying party.
-	/// </summary>
-	public class OpenIdAjaxRelyingParty : OpenIdRelyingParty {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Provides the programmatic facilities to act as an AJAX-enabled OpenID relying party.
+    /// </summary>
+    public class OpenIdAjaxRelyingParty : OpenIdRelyingParty {
 		/// <summary>
 		/// Initializes a new instance of the <see cref="OpenIdAjaxRelyingParty"/> class.
 		/// </summary>

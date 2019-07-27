@@ -1,45 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))\EnlistmentInfo.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.props))' != '' " />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <NuGetPackageImportStamp>9ca30d4e</NuGetPackageImportStamp>
+    <TargetFrameworks>net40;net45</TargetFrameworks>
+    <VersionPrefix>5.0.1$(CommitHash)</VersionPrefix>
+    <PackageId>DotNetOpenAuth.OpenId.RelyingParty.UI</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
-  <Import Project="$(ProjectRoot)tools\DotNetOpenAuth.props" />
-  <PropertyGroup>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1ED8D424-F8AB-4050-ACEB-F27F4F909484}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotNetOpenAuth</RootNamespace>
-    <AssemblyName>DotNetOpenAuth.OpenId.RelyingParty.UI</AssemblyName>
-  </PropertyGroup>
-  <Import Project="$(ProjectRoot)tools\DotNetOpenAuth.Product.props" />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="ComponentModel\IdentifierConverter.cs" />
-    <Compile Include="OpenId\Mvc\OpenIdAjaxOptions.cs" />
-    <Compile Include="OpenId\Mvc\OpenIdHelper.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdAjaxRelyingParty.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdAjaxTextBox.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdButton.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdEventArgs.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdLogin.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdRelyingPartyAjaxControlBase.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdRelyingPartyControlBase.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdSelector.cs" />
-    <Compile Include="OpenId\RelyingParty\OpenIdTextBox.cs" />
-    <Compile Include="OpenId\RelyingParty\PopupBehavior.cs" />
-    <Compile Include="OpenId\RelyingParty\SelectorButton.cs" />
-    <Compile Include="OpenId\RelyingParty\SelectorOpenIdButton.cs" />
-    <Compile Include="OpenId\RelyingParty\SelectorProviderButton.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\DotNetOpenAuth.Core.UI\DotNetOpenAuth.Core.UI.csproj">
       <Project>{173E7B8D-E751-46E2-A133-F72297C0D2F4}</Project>
@@ -62,62 +28,27 @@
       <Name>Org.Mentalis.Security.Cryptography</Name>
     </ProjectReference>
   </ItemGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
+    <PackageReference Include="Validation" Version="2.0.6.15003" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="4.0.40804" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net40' ">
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
-    <Reference Include="System.Web.Helpers">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Mvc">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Validation">
-      <HintPath>..\packages\Validation.2.0.6.15003\lib\portable-net40+sl50+win+wpa81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\Validation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="OpenId\RelyingParty\login_failure.png" />
-    <EmbeddedResource Include="OpenId\RelyingParty\login_success %28lock%29.png" />
-    <EmbeddedResource Include="OpenId\RelyingParty\login_success.png" />
-    <EmbeddedResource Include="OpenId\RelyingParty\OpenIdAjaxTextBox.css" />
-    <EmbeddedResource Include="OpenId\RelyingParty\OpenIdAjaxTextBox.js" />
-    <EmbeddedResource Include="OpenId\RelyingParty\OpenIdRelyingPartyAjaxControlBase.js" />
-    <EmbeddedResource Include="OpenId\RelyingParty\OpenIdRelyingPartyControlBase.js" />
-    <EmbeddedResource Include="OpenId\RelyingParty\OpenIdSelector.css" />
-    <EmbeddedResource Include="OpenId\RelyingParty\OpenIdSelector.js" />
-    <EmbeddedResource Include="OpenId\RelyingParty\openid_login.png" />
-    <EmbeddedResource Include="OpenId\RelyingParty\spinner.gif" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="OpenId\RelyingParty\Controls.cd" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(ProjectRoot)tools\DotNetOpenAuth.targets" />
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))\EnlistmentInfo.targets" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), EnlistmentInfo.targets))' != '' " />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+
 </Project>

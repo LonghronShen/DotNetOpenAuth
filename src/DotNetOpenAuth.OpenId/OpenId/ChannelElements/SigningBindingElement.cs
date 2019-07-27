@@ -22,10 +22,14 @@ namespace DotNetOpenAuth.OpenId.ChannelElements {
 	using DotNetOpenAuth.OpenId.Messages;
 	using Validation;
 
-	/// <summary>
-	/// Signs and verifies authentication assertions.
-	/// </summary>
-	internal abstract class SigningBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Signs and verifies authentication assertions.
+    /// </summary>
+    internal abstract class SigningBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable pre-completed task that may be returned multiple times to reduce GC pressure.
 		/// </summary>

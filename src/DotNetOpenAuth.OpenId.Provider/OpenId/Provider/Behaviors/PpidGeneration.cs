@@ -17,18 +17,22 @@ namespace DotNetOpenAuth.OpenId.Provider.Behaviors {
 	using DotNetOpenAuth.OpenId.Extensions.ProviderAuthenticationPolicy;
 	using DotNetOpenAuth.OpenId.Provider;
 
-	/// <summary>
-	/// Offers OpenID Providers automatic PPID Claimed Identifier generation when requested
-	/// by a PAPE request.
-	/// </summary>
-	/// <remarks>
-	/// <para>PPIDs are set on positive authentication responses when the PAPE request includes
-	/// the <see cref="AuthenticationPolicies.PrivatePersonalIdentifier"/> authentication policy.</para>
-	/// <para>The static member <see cref="PpidGeneration.PpidIdentifierProvider"/> MUST
-	/// be set prior to any PPID requests come in.  Typically this should be set in the
-	/// <c>Application_Start</c> method in the global.asax.cs file.</para>
-	/// </remarks>
-	[Serializable]
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Offers OpenID Providers automatic PPID Claimed Identifier generation when requested
+    /// by a PAPE request.
+    /// </summary>
+    /// <remarks>
+    /// <para>PPIDs are set on positive authentication responses when the PAPE request includes
+    /// the <see cref="AuthenticationPolicies.PrivatePersonalIdentifier"/> authentication policy.</para>
+    /// <para>The static member <see cref="PpidGeneration.PpidIdentifierProvider"/> MUST
+    /// be set prior to any PPID requests come in.  Typically this should be set in the
+    /// <c>Application_Start</c> method in the global.asax.cs file.</para>
+    /// </remarks>
+    [Serializable]
 	[SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Ppid", Justification = "Abbreviation")]
 	public sealed class PpidGeneration : IProviderBehavior {
 		/// <summary>

@@ -214,7 +214,13 @@ namespace DotNetOpenAuth.Yadis {
 				using (var responseStream = await response.Content.ReadAsStreamAsync()) {
 					var readerSettings = MessagingUtilities.CreateUntrustedXmlReaderSettings();
 					XmlReader reader = XmlReader.Create(responseStream, readerSettings);
-					while (await reader.ReadAsync() && reader.NodeType != XmlNodeType.Element) {
+					while (
+#if NET40
+                        reader.Read()
+#else
+                        await reader.ReadAsync() 
+#endif
+                        && reader.NodeType != XmlNodeType.Element) {
 						// intentionally blank
 					}
 					if (reader.NamespaceURI == XrdsNode.XrdsNamespace && reader.Name == "XRDS") {

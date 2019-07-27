@@ -19,37 +19,41 @@ namespace DotNetOpenAuth.OpenId.ChannelElements {
 	using DotNetOpenAuth.OpenId.RelyingParty;
 	using Validation;
 
-	/// <summary>
-	/// This binding element adds a nonce to a Relying Party's outgoing 
-	/// authentication request when working against an OpenID 1.0 Provider
-	/// in order to protect against replay attacks or on all authentication
-	/// requests to distinguish solicited from unsolicited assertions.
-	/// </summary>
-	/// <remarks>
-	/// <para>This nonce goes beyond the OpenID 1.x spec, but adds to security.
-	/// Since this library's Provider implementation also provides special nonce
-	/// protection for 1.0 messages, this security feature overlaps with that one.
-	/// This means that if an RP from this library were talking to an OP from this
-	/// library, but the Identifier being authenticated advertised the OP as a 1.x
-	/// OP, then both RP and OP might try to use a nonce for protecting the assertion.
-	/// There's no problem with that--it will still all work out.  And it would be a 
-	/// very rare combination of elements anyway.
-	/// </para>
-	/// <para>
-	/// This binding element deactivates itself for OpenID 2.0 (or later) messages 
-	/// since they are automatically protected in the protocol by the Provider's
-	/// openid.response_nonce parameter.  The exception to this is when
-	/// <see cref="RelyingPartySecuritySettings.RejectUnsolicitedAssertions"/> is
-	/// set to <c>true</c>, which will not only add a request nonce to every outgoing
-	/// authentication request but also require that it be present in positive
-	/// assertions, effectively disabling unsolicited assertions.
-	/// </para>
-	/// <para>In the messaging stack, this binding element looks like an ordinary
-	/// transform-type of binding element rather than a protection element,
-	/// due to its required order in the channel stack and that it exists
-	/// only on the RP side and only on some messages.</para>
-	/// </remarks>
-	internal class ReturnToNonceBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// This binding element adds a nonce to a Relying Party's outgoing 
+    /// authentication request when working against an OpenID 1.0 Provider
+    /// in order to protect against replay attacks or on all authentication
+    /// requests to distinguish solicited from unsolicited assertions.
+    /// </summary>
+    /// <remarks>
+    /// <para>This nonce goes beyond the OpenID 1.x spec, but adds to security.
+    /// Since this library's Provider implementation also provides special nonce
+    /// protection for 1.0 messages, this security feature overlaps with that one.
+    /// This means that if an RP from this library were talking to an OP from this
+    /// library, but the Identifier being authenticated advertised the OP as a 1.x
+    /// OP, then both RP and OP might try to use a nonce for protecting the assertion.
+    /// There's no problem with that--it will still all work out.  And it would be a 
+    /// very rare combination of elements anyway.
+    /// </para>
+    /// <para>
+    /// This binding element deactivates itself for OpenID 2.0 (or later) messages 
+    /// since they are automatically protected in the protocol by the Provider's
+    /// openid.response_nonce parameter.  The exception to this is when
+    /// <see cref="RelyingPartySecuritySettings.RejectUnsolicitedAssertions"/> is
+    /// set to <c>true</c>, which will not only add a request nonce to every outgoing
+    /// authentication request but also require that it be present in positive
+    /// assertions, effectively disabling unsolicited assertions.
+    /// </para>
+    /// <para>In the messaging stack, this binding element looks like an ordinary
+    /// transform-type of binding element rather than a protection element,
+    /// due to its required order in the channel stack and that it exists
+    /// only on the RP side and only on some messages.</para>
+    /// </remarks>
+    internal class ReturnToNonceBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable, precompleted task that can be returned many times to reduce GC pressure.
 		/// </summary>

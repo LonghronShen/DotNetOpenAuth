@@ -20,11 +20,15 @@ namespace DotNetOpenAuth.OpenId.ChannelElements {
 	using DotNetOpenAuth.OpenId.Messages;
 	using Validation;
 
-	/// <summary>
-	/// The binding element that serializes/deserializes OpenID extensions to/from
-	/// their carrying OpenID messages.
-	/// </summary>
-	internal class ExtensionsBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// The binding element that serializes/deserializes OpenID extensions to/from
+    /// their carrying OpenID messages.
+    /// </summary>
+    internal class ExtensionsBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable pre-completed task that may be returned multiple times to reduce GC pressure.
 		/// </summary>

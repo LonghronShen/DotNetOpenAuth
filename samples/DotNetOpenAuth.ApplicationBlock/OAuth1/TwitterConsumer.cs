@@ -241,8 +241,12 @@ namespace DotNetOpenAuth.ApplicationBlock {
 			private static readonly IHostFactories underlyingFactories = new DefaultOAuthHostFactories();
 
 			public HttpMessageHandler CreateHttpMessageHandler() {
-				return new WebRequestHandler();
-			}
+#if NET40
+                return new WebRequestHandler();
+#else
+                return new HttpClientHandler();
+#endif
+            }
 
 			public HttpClient CreateHttpClient(HttpMessageHandler handler = null) {
 				var client = underlyingFactories.CreateHttpClient(handler);

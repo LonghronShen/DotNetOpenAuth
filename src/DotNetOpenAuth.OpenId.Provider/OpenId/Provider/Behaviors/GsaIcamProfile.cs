@@ -21,16 +21,20 @@ namespace DotNetOpenAuth.OpenId.Provider.Behaviors {
 	using DotNetOpenAuth.OpenId.RelyingParty;
 	using Validation;
 
-	/// <summary>
-	/// Implements the Identity, Credential, &amp; Access Management (ICAM) OpenID 2.0 Profile
-	/// for the General Services Administration (GSA).
-	/// </summary>
-	/// <remarks>
-	/// <para>Relying parties that include this profile are always held to the terms required by the profile,
-	/// but Providers are only affected by the special behaviors of the profile when the RP specifically
-	/// indicates that they want to use this profile. </para>
-	/// </remarks>
-	[Serializable]
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Implements the Identity, Credential, &amp; Access Management (ICAM) OpenID 2.0 Profile
+    /// for the General Services Administration (GSA).
+    /// </summary>
+    /// <remarks>
+    /// <para>Relying parties that include this profile are always held to the terms required by the profile,
+    /// but Providers are only affected by the special behaviors of the profile when the RP specifically
+    /// indicates that they want to use this profile. </para>
+    /// </remarks>
+    [Serializable]
 	[SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Icam", Justification = "Acronym")]
 	public sealed class GsaIcamProfile : GsaIcamProfileBase, IProviderBehavior {
 		/// <summary>

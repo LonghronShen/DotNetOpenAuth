@@ -245,8 +245,14 @@ namespace DotNetOpenAuth {
 		internal static async Task<Dictionary<TSource, TResult>> ToDictionaryAsync<TSource, TResult>(
 			this IEnumerable<TSource> source, Func<TSource, Task<TResult>> transform) {
 			var taskResults = source.ToDictionary(s => s, transform);
-			await Task.WhenAll(taskResults.Values);
-			return taskResults.ToDictionary(p => p.Key, p => p.Value.Result);
+			await
+#if NET40
+            System.Threading.Tasks.TaskEx
+#else
+            Task
+#endif                
+                .WhenAll(taskResults.Values);
+            return taskResults.ToDictionary(p => p.Key, p => p.Value.Result);
 		}
 
 		/// <summary>

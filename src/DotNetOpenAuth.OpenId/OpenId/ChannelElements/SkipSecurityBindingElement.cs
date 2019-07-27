@@ -16,10 +16,14 @@ namespace DotNetOpenAuth.OpenId.ChannelElements {
 	using DotNetOpenAuth.Logging;
 	using DotNetOpenAuth.Messaging;
 
-	/// <summary>
-	/// Spoofs security checks on incoming OpenID messages.
-	/// </summary>
-	internal class SkipSecurityBindingElement : IChannelBindingElement {
+#if NET40
+    using Task = System.Threading.Tasks.TaskEx;
+#endif
+
+    /// <summary>
+    /// Spoofs security checks on incoming OpenID messages.
+    /// </summary>
+    internal class SkipSecurityBindingElement : IChannelBindingElement {
 		/// <summary>
 		/// A reusable pre-completed task that may be returned multiple times to reduce GC pressure.
 		/// </summary>
